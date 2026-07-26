@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Mistrio Admin — dispatch console
+   The board should be readable at arm's length, on a phone,
+   in daylight. Density over decoration.
+   ============================================================ */
+
+@layer base {
+  :root {
+    --status-pending: #6B7280;
+    --status-confirmed: #2563EB;
+    --status-assigned: #7C3AED;
+    --status-moving: #0891B2;
+    --status-working: #F0790B;
+    --status-done: #0E9F6E;
+    --status-dead: #DC2626;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'cv05' 1, 'ss01' 1;
+  }
+
+  /* Money and codes are data, not prose — always tabular */
+  .num {
+    @apply font-mono tabular-nums;
+    font-variant-numeric: tabular-nums;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-amber ring-offset-2 ring-offset-paper;
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-line rounded-full;
+  }
+}
+
+@layer components {
+  /* The signature: a solid rail on the left of every row encoding status */
+  .rail {
+    @apply relative pl-4;
+  }
+  .rail::before {
+    content: '';
+    @apply absolute left-0 top-0 bottom-0 w-1 rounded-full;
+    background: var(--rail, theme('colors.line'));
+  }
+
+  .card {
+    @apply bg-white rounded-xl border border-line shadow-card;
+  }
+
+  .eyebrow {
+    @apply text-2xs font-semibold uppercase tracking-widest text-muted;
+  }
+
+  .press {
+    @apply transition active:scale-[0.98];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
